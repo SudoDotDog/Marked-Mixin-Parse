@@ -30,6 +30,20 @@ describe('Given (Parse Int) Parse Method for Integration Test', (): void => {
         expect(result.exports.default).to.be.equal(42);
     });
 
+    it('should be able to execute parseInt with radix in sandbox', async (): Promise<void> => {
+
+        const sandbox: Sandbox = createTestSandbox();
+
+        const result: MarkedResult = await sandbox.evaluate([
+            'export default Parse.parseInt("42", 16)',
+        ].join(New_Line_Character));
+
+        assertSucceedMarkedResult(result);
+
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        expect(result.exports.default).to.be.equal(66);
+    });
+
     it('should be able to execute parseInt in sandbox with additional argument', async (): Promise<void> => {
 
         const sandbox: Sandbox = createTestSandbox();
